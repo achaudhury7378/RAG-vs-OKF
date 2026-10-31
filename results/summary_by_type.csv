@@ -1,0 +1,7 @@
+pipeline,type,faithfulness,answer_relevancy,llm_context_precision_with_reference,context_recall,factual_correctness(mode=f1)
+okf,multi_hop,0.944,0.87,0.889,1.0,0.655
+okf,single,1.0,0.781,1.0,1.0,0.638
+okf,unanswerable,0.25,0.0,1.0,1.0,1.0
+rag,multi_hop,0.737,0.671,0.84,0.819,0.503
+rag,single,1.0,0.848,0.875,1.0,0.739
+rag,unanswerable,1.0,0.0,1.0,1.0,1.0

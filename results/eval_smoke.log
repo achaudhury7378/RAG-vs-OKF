@@ -1,0 +1,18 @@
+Evaluating:   0%|          | 0/15 [00:00<?, ?it/s]Evaluating:   7%|▋         | 1/15 [00:11<02:41, 11.57s/it]Evaluating:  13%|█▎        | 2/15 [00:28<03:09, 14.58s/it]Evaluating:  20%|██        | 3/15 [00:40<02:42, 13.58s/it]Evaluating:  27%|██▋       | 4/15 [00:54<02:29, 13.59s/it]Evaluating:  33%|███▎      | 5/15 [01:11<02:27, 14.75s/it]Evaluating:  40%|████      | 6/15 [01:21<02:00, 13.35s/it]Evaluating:  47%|████▋     | 7/15 [01:23<01:16,  9.57s/it]Evaluating:  53%|█████▎    | 8/15 [01:32<01:06,  9.51s/it]Evaluating:  60%|██████    | 9/15 [01:53<01:18, 13.01s/it]Evaluating:  67%|██████▋   | 10/15 [01:58<00:52, 10.50s/it]Evaluating:  73%|███████▎  | 11/15 [02:09<00:43, 10.81s/it]Evaluating:  80%|████████  | 12/15 [02:16<00:28,  9.58s/it]Evaluating:  87%|████████▋ | 13/15 [02:27<00:20, 10.09s/it]Evaluating:  93%|█████████▎| 14/15 [03:07<00:18, 18.88s/it]Evaluating: 100%|██████████| 15/15 [03:13<00:00, 15.18s/it]Evaluating: 100%|██████████| 15/15 [03:13<00:00, 12.92s/it]
+        faithfulness  answer_relevancy  llm_context_precision_with_reference  context_recall  factual_correctness(mode=f1)
+type                                                                                                                      
+single           1.0             0.966                                 0.833             1.0                          0.97
+
+overall
+ faithfulness                            1.000
+answer_relevancy                        0.966
+llm_context_precision_with_reference    0.833
+context_recall                          1.000
+factual_correctness(mode=f1)            0.970
+
+NaN counts
+ faithfulness                            0
+answer_relevancy                        0
+llm_context_precision_with_reference    0
+context_recall                          0
+factual_correctness(mode=f1)            0

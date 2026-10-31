@@ -1,0 +1,530 @@
+[
+  {
+    "id": "s1",
+    "type": "single",
+    "question": "What are the stages of the classic SCOR model?",
+    "reference": "Plan, Source, Make, Deliver, Return (plus Enable).",
+    "retrieved_contexts": [
+      "---\ntype: concept\ntitle: SCOR model and core supply chain terms\ndescription: Plan-Source-Make-Deliver-Return framing and the vocabulary interviewers expect\n---\nThe classic SCOR model splits the chain into Plan, Source, Make, Deliver, Return (plus Enable). The newer SCOR Digital Standard renamed some of these; verify the current labels if you cite it by name.\n\nUseful terms: FTL vs LTL, cross-dock (no storage, direct transfer), 3PL, inbound vs outbound logistics, MTS / MTO / ATO / ETO (make-to-stock, make-to-order, assemble-to-order, engineer-to-order), push vs pull, and the customer order decoupling point (where forecast-driven push turns into order-driven pull).\n\nInterviewers use this to check you speak the planner's language. Tie every model you mention to a metric, see [supply chain metrics](supply-chain-metrics.md). Decisions by function are in the [planning hierarchy](planning-hierarchy.md).\n"
+    ],
+    "files_read": [
+      "scor-and-terms.md"
+    ],
+    "nav_calls": 2,
+    "retrieval_seconds": 5.4329328536987305,
+    "units_read": 1,
+    "response": "The classic SCOR model splits the chain into Plan, Source, Make, Deliver, Return (plus Enable).",
+    "gen_seconds": 1.9041128158569336,
+    "input_tokens": 276,
+    "output_tokens": 23
+  },
+  {
+    "id": "s2",
+    "type": "single",
+    "question": "How is OTIF calculated?",
+    "reference": "Orders delivered on time and in full divided by total orders.",
+    "retrieved_contexts": [
+      "---\ntype: metric\ntitle: Key supply chain metrics\ndescription: Fill rate, OTIF, perfect order, inventory turns, days of supply, cash-to-cash, forecast accuracy, OEE, cost to serve\n---\n| Metric | Formula | Watch out for |\n|---|---|---|\n| Unit fill rate | Units shipped from stock on first attempt / units ordered | Line fill and order fill are stricter variants |\n| OTIF | Orders delivered on time and in full / total orders | Definition of \"on time\" (requested vs promised date) varies by client |\n| Perfect order rate | Share of orders that are OTIF, undamaged and correctly documented | Often approximated as a product of component rates (assumes independence) |\n| Inventory turns | COGS / average inventory value | Higher is leaner, but too high risks stockouts |\n| Days of supply (DOS / DOH) | Average inventory / average daily COGS, or 365 / turns | Forward-looking DOS uses forecast demand instead |\n| Cash-to-cash cycle | DIO + DSO - DPO | Inventory (DIO) is the lever SC teams own |\n| Forecast accuracy | 1 - WMAPE | Measure at the grain and lag that drives decisions; see [forecast accuracy metrics](forecast-accuracy-metrics.md) |\n| Forecast bias | Sum(F - A) / Sum(A) | Persistent positive bias = excess stock |\n| OEE | Availability x Performance x Quality | Manufacturing only |\n| Cost to serve | Total cost (logistics, handling, service) per customer or order | Reveals unprofitable customers/channels |\n\nSelf-test: fill rate 92% but OTIF 70%? Fill rate counts units; OTIF fails the whole order if any line is short or late. Many orders are missing a few lines, or are complete but late. Check lateness separately.\n\nRelated: [cycle service level vs fill rate](csl-vs-fill-rate.md).\n"
+    ],
+    "files_read": [
+      "supply-chain-metrics.md"
+    ],
+    "nav_calls": 2,
+    "retrieval_seconds": 3.6378209590911865,
+    "units_read": 1,
+    "response": "Orders delivered on time and in full / total orders.",
+    "gen_seconds": 2.0590062141418457,
+    "input_tokens": 463,
+    "output_tokens": 12
+  },
+  {
+    "id": "s3",
+    "type": "single",
+    "question": "What are the four causes of the bullwhip effect?",
+    "reference": "Demand signal processing, order batching, price fluctuations (promotions and forward buying), and rationing and shortage gaming.",
+    "retrieved_contexts": [
+      "---\ntype: concept\ntitle: Bullwhip effect\ndescription: Order variability amplifying upstream, its four causes and remedies\n---\nOrder variability amplifies as you move upstream from retailer to supplier. Measured as Var(orders) / Var(demand) > 1 at each stage.\n\nFour causes (Lee, Padmanabhan and Whang, 1997):\n1. Demand signal processing: each stage forecasts from the orders it receives, not true demand.\n2. Order batching: periodic or full-truckload ordering creates lumpy orders.\n3. Price fluctuations: promotions and forward buying.\n4. Rationing and shortage gaming: customers inflate orders when supply is short.\n\nRemedies: share POS data, VMI, CPFR, smaller and more frequent orders, everyday low pricing, allocate shortages on past sales rather than current orders.\n\nCost to a client and how to show it: plot order variance vs POS demand variance by tier; the excess drives capacity, overtime and safety stock upstream (see [safety stock](safety-stock-and-rop.md)).\n"
+    ],
+    "files_read": [
+      "bullwhip-effect.md"
+    ],
+    "nav_calls": 2,
+    "retrieval_seconds": 1.831387996673584,
+    "units_read": 1,
+    "response": "The four causes of the bullwhip effect are:\n1. Demand signal processing\n2. Order batching\n3. Price fluctuations\n4. Rationing and shortage gaming",
+    "gen_seconds": 2.375596761703491,
+    "input_tokens": 283,
+    "output_tokens": 36
+  },
+  {
+    "id": "s4",
+    "type": "single",
+    "question": "What is the EOQ formula?",
+    "reference": "Q* = sqrt(2DS / h), where D is annual demand, S is the cost per order and h is the annual holding cost per unit.",
+    "retrieved_contexts": [
+      "---\ntype: formula\ntitle: Economic Order Quantity (EOQ)\ndescription: EOQ formula, robustness, worked example, EPQ and quantity discounts\n---\nAssumes constant known demand, fixed lead time, no shortages, instant replenishment.\n\nTC(Q) = (D/Q) S + (Q/2) h, and Q* = sqrt(2DS / h). At Q*, annual ordering cost = annual holding cost.\n\nRobustness: TC(Q)/TC(Q*) = 1/2 (Q/Q* + Q*/Q). Ordering 20% above Q* raises cost only about 1.7%; ordering 2x Q* raises it 25%. This flatness is why EOQ works despite rough cost inputs.\n\nWorked example: D = 12,000 units/yr, S = Rs 500/order, c = Rs 200, i = 25%, so h = Rs 50. Q* = sqrt(2 x 12,000 x 500 / 50) is about 490 units, about 24.5 orders a year, total cost about Rs 24,500.\n\nExtensions:\n- EPQ (production rate P > demand rate D): Q* = sqrt(2DS / (h(1 - D/P))).\n- Quantity discounts: compute Q* at each price; if it falls below that price's break, push it up to the break; pick the lowest total cost including purchase cost.\n\nCost parameters are explained in [why inventory exists](inventory-types.md).\n"
+    ],
+    "files_read": [
+      "eoq.md"
+    ],
+    "nav_calls": 2,
+    "retrieval_seconds": 1.8906517028808594,
+    "units_read": 1,
+    "response": "TC(Q) = (D/Q) S + (Q/2) h, and Q* = sqrt(2DS / h).",
+    "gen_seconds": 2.4450509548187256,
+    "input_tokens": 374,
+    "output_tokens": 29
+  },
+  {
+    "id": "s5",
+    "type": "single",
+    "question": "What z-value corresponds to a 95% cycle service level?",
+    "reference": "1.645.",
+    "retrieved_contexts": [
+      "---\ntype: formula\ntitle: Safety stock and reorder point\ndescription: SS formulas with demand and lead-time variability, z-values, worked example and refinements\n---\nSS = z x sigma_d x sqrt(L) (demand variability only).\nSS = z x sqrt(L x sigma_d^2 + d-bar^2 x sigma_L^2) (demand and lead-time variability).\nROP = d-bar x L + SS.\n\nz from target cycle service level: 90% -> 1.28, 95% -> 1.645, 98% -> 2.05, 99% -> 2.33.\n\nWorked example: d-bar = 100/day, sigma_d = 20, L = 9 days, 95% CSL.\n- Demand variability only: SS = 1.645 x 20 x 3 = about 99, ROP = 900 + 99 = 999.\n- Add lead-time sigma_L = 2 days: SS = 1.645 x sqrt(9 x 400 + 10,000 x 4) = 1.645 x sqrt(43,600) = about 344.\n\nInsight to say out loud: lead-time variability more than tripled safety stock. Fixing supplier reliability can free more cash than better forecasting. Lead-time variance enters multiplied by d-bar^2, so it often dominates.\n\nTwo refinements interviewers like:\n1. sigma_d should be the forecast error standard deviation, not raw demand sigma. Seasonal demand has high sigma but may be well forecast. Safety stock covers what you can't predict. Better forecasts translate directly into lower stock (see [forecast accuracy metrics](forecast-accuracy-metrics.md)); quantify that for the client in rupees, not WMAPE points.\n2. The formula targets CSL. For a fill rate target beta, use the expected shortage per cycle: beta = 1 - sigma_LT x G(z) / Q, where G(z) = phi(z) - z(1 - Phi(z)) is the standard normal loss function. Solve for z. See [CSL vs fill rate](csl-vs-fill-rate.md).\n\nPeriodic review needs more: see [review policies](review-policies.md). Pooling reduces it: see [risk pooling](risk-pooling-multiechelon.md).\n",
+      "---\ntype: concept\ntitle: Cycle service level vs fill rate\ndescription: Two service targets that are not the same and how they relate\n---\nCSL = probability of no stockout in a replenishment cycle. Fill rate = fraction of demand met from stock.\n\nThey differ: a stockout late in a cycle may miss only a few units, so fill rate is usually higher than CSL for the same policy, especially when order quantities are large. Always ask the client which one their target means.\n\nThe [safety stock formula](safety-stock-and-rop.md) targets CSL; for a fill rate target use the expected shortage per cycle (see that page). Order-level service is measured by OTIF in [supply chain metrics](supply-chain-metrics.md).\n",
+      "---\ntype: metric\ntitle: Forecast accuracy metrics\ndescription: MAE, RMSE, MAPE, WMAPE, MASE, bias, tracking signal, pinball loss and when to use MAPE vs WMAPE\n---\n| Metric | Formula | Notes |\n|---|---|---|\n| MAE | mean abs(A - F) | Scale-dependent |\n| RMSE | sqrt(mean (A - F)^2) | Penalizes big misses |\n| MAPE | mean abs(A - F) / A | Undefined at A = 0, explodes on low volume, penalizes over-forecasts more |\n| WMAPE | Sum abs(A - F) / Sum A | Industry default; volume-weighted, robust to zeros |\n| MASE | MAE / in-sample naive MAE | Scale-free; < 1 means better than naive |\n| Bias | Sum(F - A) / Sum(A) | Sign shows over/under-forecasting |\n| Tracking signal | Cumulative error / MAD | Beyond about +-4 flags persistent bias (rule of thumb) |\n| Pinball loss | Quantile loss | For probabilistic forecasts |\n\nWhen MAPE vs WMAPE? WMAPE for SKU portfolios: volume-weighted, handles zeros. MAPE breaks on low-volume and zero-demand items.\n\nConsensus process: statistical forecast + market intelligence overrides; track bias by who overrides. Safety stock uses the standard deviation of forecast error at the replenishment lead time, so better forecasts translate directly into lower stock ([safety stock](safety-stock-and-rop.md)). Quantify that for the client in rupees, not WMAPE points.\n"
+    ],
+    "files_read": [
+      "safety-stock-and-rop.md",
+      "csl-vs-fill-rate.md",
+      "forecast-accuracy-metrics.md"
+    ],
+    "nav_calls": 2,
+    "retrieval_seconds": 5.965467214584351,
+    "units_read": 3,
+    "response": "1.645.",
+    "gen_seconds": 3.8489842414855957,
+    "input_tokens": 1044,
+    "output_tokens": 5
+  },
+  {
+    "id": "s6",
+    "type": "single",
+    "question": "What are the ADI and CV2 cut-offs in the Syntetos-Boylan classification?",
+    "reference": "ADI = 1.32 and CV2 = 0.49.",
+    "retrieved_contexts": [
+      "---\ntype: method\ntitle: Classify the demand pattern (Syntetos-Boylan)\ndescription: ADI and CV2 cut-offs and which forecasting methods fit each quadrant\n---\nThe consulting answer is never \"I'd use LightGBM\". It is: classify the demand, set a naive baseline, pick methods per segment, validate with rolling backtests, and measure in the metric the decision uses.\n\nSyntetos-Boylan classification uses ADI (average interval between non-zero demands) and CV2 (squared coefficient of variation of non-zero demand sizes). The usual cut-offs are ADI = 1.32 and CV2 = 0.49.\n\n| | CV2 < 0.49 | CV2 >= 0.49 |\n|---|---|---|\n| ADI < 1.32 | Smooth: ETS, ARIMA, ML | Erratic: ML with features, wider safety stock |\n| ADI >= 1.32 | Intermittent: Croston, SBA, TSB | Lumpy: Croston-type or aggregate up, consider MTO |\n\nMethods: [baselines, ETS and ARIMA](forecasting-methods.md), [intermittent demand](intermittent-demand.md), [ML global models](ml-forecasting.md).\n"
+    ],
+    "files_read": [
+      "demand-classification.md"
+    ],
+    "nav_calls": 2,
+    "retrieval_seconds": 1.979475975036621,
+    "units_read": 1,
+    "response": "The ADI cut-off is 1.32 and the CV2 cut-off is 0.49.",
+    "gen_seconds": 2.054725170135498,
+    "input_tokens": 345,
+    "output_tokens": 23
+  },
+  {
+    "id": "s7",
+    "type": "single",
+    "question": "What bias does the SBA method correct in Croston's method, and with what factor?",
+    "reference": "Croston is biased upward; SBA corrects it with a factor of (1 - alpha/2).",
+    "retrieved_contexts": [
+      "---\ntype: method\ntitle: Intermittent demand: Croston, SBA, TSB\ndescription: Methods for sporadic demand and how each fixes the previous one's bias\n---\nCroston: separately smooths non-zero demand size and the interval between demands; forecast = size / interval.\n\nCroston is biased upward; SBA corrects it with a factor (1 - alpha/2).\n\nTSB smooths demand probability every period instead of interval, so it decays toward zero for obsolete items.\n\nUsed for the intermittent quadrant of the [demand classification](demand-classification.md). For lumpy demand consider aggregating up or make-to-order.\n",
+      "---\ntype: method\ntitle: Classify the demand pattern (Syntetos-Boylan)\ndescription: ADI and CV2 cut-offs and which forecasting methods fit each quadrant\n---\nThe consulting answer is never \"I'd use LightGBM\". It is: classify the demand, set a naive baseline, pick methods per segment, validate with rolling backtests, and measure in the metric the decision uses.\n\nSyntetos-Boylan classification uses ADI (average interval between non-zero demands) and CV2 (squared coefficient of variation of non-zero demand sizes). The usual cut-offs are ADI = 1.32 and CV2 = 0.49.\n\n| | CV2 < 0.49 | CV2 >= 0.49 |\n|---|---|---|\n| ADI < 1.32 | Smooth: ETS, ARIMA, ML | Erratic: ML with features, wider safety stock |\n| ADI >= 1.32 | Intermittent: Croston, SBA, TSB | Lumpy: Croston-type or aggregate up, consider MTO |\n\nMethods: [baselines, ETS and ARIMA](forecasting-methods.md), [intermittent demand](intermittent-demand.md), [ML global models](ml-forecasting.md).\n",
+      "---\ntype: method\ntitle: Baselines, exponential smoothing and ARIMA\ndescription: Naive baselines, SES/Holt/Holt-Winters, damped trend, ARIMA/SARIMA\n---\nBaselines (always report these): naive (last value), seasonal naive (same period last year/week), moving average. A model that can't beat seasonal naive is not worth deploying.\n\nExponential smoothing (ETS): simple exponential smoothing is level only, l_t = alpha y_t + (1 - alpha) l_(t-1). Holt adds trend. Holt-Winters adds seasonality; additive when seasonal swings are constant in size, multiplicative when they scale with level. Damped trend is often the safer default for longer horizons.\n\nARIMA / SARIMA: AR(p) = regression on own lags, I(d) = differencing for stationarity, MA(q) = regression on past errors. SARIMA adds seasonal terms. Identify via ACF/PACF or auto-search on AIC. ARIMAX adds regressors like price or promo. Weakness at scale: one model per series, slow across thousands of SKUs.\n\nChoosing a method depends on the [demand pattern](demand-classification.md). Check against baselines using [forecast validation](forecast-validation.md).\n",
+      "---\ntype: method\ntitle: ML global models and probabilistic forecasts\ndescription: One LightGBM/XGBoost across all SKUs, features, lag leakage, deep learning, quantile forecasts\n---\nOne gradient-boosted model (LightGBM/XGBoost) trained across all SKU-store series shares patterns across series and handles thousands of SKUs.\n\nFeatures: lags (t-1, t-7, t-52), rolling means and std, calendar (week, month, holidays, paydays), price and discount depth, promo flags, display/feature, stockout flags, SKU and store attributes, weather where relevant.\n\nLags must respect the horizon: to forecast 4 weeks out, the shortest usable lag is 4 weeks. Using lag-1 for a 4-week horizon is leakage. Freeze features as known at forecast time; promo plans that change later are a common hidden leak. See [forecast validation](forecast-validation.md).\n\nDeep learning options you can name: DeepAR, N-BEATS, Temporal Fusion Transformer. Usually only worth it at large scale.\n\nProbabilistic forecasts: inventory needs a distribution, not a point. Use quantile regression (pinball loss) in LightGBM, or residual-based intervals. The 95th percentile forecast feeds [safety stock](safety-stock-and-rop.md) directly.\n"
+    ],
+    "files_read": [
+      "intermittent-demand.md",
+      "demand-classification.md",
+      "forecasting-methods.md",
+      "ml-forecasting.md"
+    ],
+    "nav_calls": 3,
+    "retrieval_seconds": 3.252331018447876,
+    "units_read": 4,
+    "response": "Croston is biased upward; SBA corrects it with a factor (1 - alpha/2).",
+    "gen_seconds": 4.507583141326904,
+    "input_tokens": 1021,
+    "output_tokens": 22
+  },
+  {
+    "id": "s8",
+    "type": "single",
+    "question": "What is elitism in a genetic algorithm and what size is typical?",
+    "reference": "Carrying the top e individuals unchanged into the next generation so the best-so-far is never lost; a small e of 1-5% of the population N is typical.",
+    "retrieved_contexts": [
+      "---\ntype: concept\ntitle: Replacement, elitism and premature convergence\ndescription: Generational vs steady-state, elitism size, diversity fixes and monitoring\n---\nReplacement: generational means children replace the whole population; steady-state replaces a few worst each step.\n\nElitism: carry the top e individuals unchanged, so the best-so-far is never lost. Small e (1-5% of N) is typical; large e reduces diversity.\n\nPremature convergence: the population becomes near-identical early and best fitness plateaus. Fixes: lower selection pressure (smaller tournament, see [selection](ga-selection.md)), raise mutation (or adapt it when diversity drops), fitness sharing or crowding (penalize individuals in crowded regions), island models (sub-populations with occasional migration), restarts that keep the elite.\n\nMonitor diversity explicitly: average pairwise Hamming distance, or fitness standard deviation in the population.\n",
+      "---\ntype: concept\ntitle: Genetic algorithm loop and encoding\ndescription: The GA loop steps and encodings (binary, integer, real, permutation, random keys)\n---\nEvery GA design choice controls one trade-off: selection pressure (exploit) versus diversity (explore). The probe is usually \"why did you choose that operator?\"\n\nThe loop:\n1. Initialize a population of N candidate solutions (random, or seeded with heuristic solutions).\n2. Evaluate fitness of each.\n3. Select parents (biased toward fitter ones), see [selection](ga-selection.md).\n4. Crossover parents to produce children (with probability pc), see [crossover and mutation](ga-crossover-mutation.md).\n5. Mutate children (with small probability pm per gene).\n6. Replace: form the next generation, usually keeping the best few (elitism), see [elitism and diversity](ga-elitism-diversity.md).\n7. Repeat from step 2 until a stopping rule: max generations, time limit, or no improvement for k generations.\n\nEncoding is the most important choice; it decides which operators make sense and whether children stay feasible.\n\n| Encoding | Example problem | Notes |\n|---|---|---|\n| Binary string | Facility open/close, knapsack | Simple; bit-flip mutation |\n| Integer vector | Assign each customer to a DC | Operators must keep values in range |\n| Real-valued vector | Continuous parameters, prices | Use blend or SBX crossover, Gaussian mutation |\n| Permutation | TSP, job sequencing, VRP routes | Needs special crossover (OX, PMX); one-point crossover creates duplicates |\n| Random keys | Any permutation problem | Real vector decoded by sorting into a permutation; any crossover stays valid |\n\nConstraints: [GA constraint handling](ga-constraints.md).\n",
+      "---\ntype: concept\ntitle: GA theory: schema theorem and memetic algorithms\ndescription: What the schema theorem does and does not say, no optimality bound, memetic GA\n---\nSchema theorem (Holland): short, low-order, above-average schemata grow exponentially across generations. It motivates the building-block idea but is not a convergence guarantee.\n\nNo optimality guarantee and no bound: a GA cannot tell you how far you are from the optimum. That is the main argument against it when an exact method is feasible ([GA vs MILP](ga-vs-milp.md)).\n\nMemetic algorithms: GA plus local search on each child (e.g., 2-opt). Usually much stronger than plain GA on combinatorial problems.\n"
+    ],
+    "files_read": [
+      "ga-elitism-diversity.md",
+      "ga-loop-and-encoding.md",
+      "ga-theory.md"
+    ],
+    "nav_calls": 2,
+    "retrieval_seconds": 4.315778732299805,
+    "units_read": 3,
+    "response": "Elitism is a technique in a genetic algorithm where the top e individuals are carried unchanged to the next generation, so the best-so-far is never lost. A typical size for e is 1-5% of the population N.",
+    "gen_seconds": 4.807931900024414,
+    "input_tokens": 778,
+    "output_tokens": 50
+  },
+  {
+    "id": "m1",
+    "type": "multi_hop",
+    "question": "In the safety stock worked example, how much did adding lead-time variability increase safety stock, and what does that imply for priorities?",
+    "reference": "Safety stock rose from about 99 to about 344 units, more than tripling. Fixing supplier reliability can free more cash than better forecasting.",
+    "retrieved_contexts": [
+      "---\ntype: formula\ntitle: Safety stock and reorder point\ndescription: SS formulas with demand and lead-time variability, z-values, worked example and refinements\n---\nSS = z x sigma_d x sqrt(L) (demand variability only).\nSS = z x sqrt(L x sigma_d^2 + d-bar^2 x sigma_L^2) (demand and lead-time variability).\nROP = d-bar x L + SS.\n\nz from target cycle service level: 90% -> 1.28, 95% -> 1.645, 98% -> 2.05, 99% -> 2.33.\n\nWorked example: d-bar = 100/day, sigma_d = 20, L = 9 days, 95% CSL.\n- Demand variability only: SS = 1.645 x 20 x 3 = about 99, ROP = 900 + 99 = 999.\n- Add lead-time sigma_L = 2 days: SS = 1.645 x sqrt(9 x 400 + 10,000 x 4) = 1.645 x sqrt(43,600) = about 344.\n\nInsight to say out loud: lead-time variability more than tripled safety stock. Fixing supplier reliability can free more cash than better forecasting. Lead-time variance enters multiplied by d-bar^2, so it often dominates.\n\nTwo refinements interviewers like:\n1. sigma_d should be the forecast error standard deviation, not raw demand sigma. Seasonal demand has high sigma but may be well forecast. Safety stock covers what you can't predict. Better forecasts translate directly into lower stock (see [forecast accuracy metrics](forecast-accuracy-metrics.md)); quantify that for the client in rupees, not WMAPE points.\n2. The formula targets CSL. For a fill rate target beta, use the expected shortage per cycle: beta = 1 - sigma_LT x G(z) / Q, where G(z) = phi(z) - z(1 - Phi(z)) is the standard normal loss function. Solve for z. See [CSL vs fill rate](csl-vs-fill-rate.md).\n\nPeriodic review needs more: see [review policies](review-policies.md). Pooling reduces it: see [risk pooling](risk-pooling-multiechelon.md).\n",
+      "---\ntype: formula\ntitle: Economic Order Quantity (EOQ)\ndescription: EOQ formula, robustness, worked example, EPQ and quantity discounts\n---\nAssumes constant known demand, fixed lead time, no shortages, instant replenishment.\n\nTC(Q) = (D/Q) S + (Q/2) h, and Q* = sqrt(2DS / h). At Q*, annual ordering cost = annual holding cost.\n\nRobustness: TC(Q)/TC(Q*) = 1/2 (Q/Q* + Q*/Q). Ordering 20% above Q* raises cost only about 1.7%; ordering 2x Q* raises it 25%. This flatness is why EOQ works despite rough cost inputs.\n\nWorked example: D = 12,000 units/yr, S = Rs 500/order, c = Rs 200, i = 25%, so h = Rs 50. Q* = sqrt(2 x 12,000 x 500 / 50) is about 490 units, about 24.5 orders a year, total cost about Rs 24,500.\n\nExtensions:\n- EPQ (production rate P > demand rate D): Q* = sqrt(2DS / (h(1 - D/P))).\n- Quantity discounts: compute Q* at each price; if it falls below that price's break, push it up to the break; pick the lowest total cost including purchase cost.\n\nCost parameters are explained in [why inventory exists](inventory-types.md).\n",
+      "---\ntype: concept\ntitle: Why inventory exists and the cost trade-off\ndescription: Ordering, holding and shortage costs and the five types of stock\n---\nEvery inventory model trades off three costs: ordering (S per order), holding (h = i x c per unit per year, where i is the carrying rate) and shortage. Be ready to derive [EOQ](eoq.md) and the [newsvendor](newsvendor.md) on a whiteboard.\n\n| Type | Purpose |\n|---|---|\n| Cycle stock | Ordering in batches (Q/2 on average) |\n| Safety stock | Buffer against demand and lead-time uncertainty, see [safety stock](safety-stock-and-rop.md) |\n| Pipeline stock | In transit; average = d-bar x L (Little's law) |\n| Anticipation stock | Pre-build for seasons or promotions |\n| Decoupling stock | Lets stages run independently |\n",
+      "---\ntype: formula\ntitle: Newsvendor model (single period)\ndescription: Critical ratio, underage and overage cost, worked example with two salvage values\n---\nFor perishable or seasonal items: order once, leftover is salvaged, shortage is lost.\n\nUnderage cost Cu = price - cost (margin lost per unit short). Overage cost Co = cost - salvage (loss per unit left over). F(Q*) = Cu / (Cu + Co).\n\nMarginal argument: increase Q while the expected gain of one more unit, Cu x P(D > Q), exceeds the expected loss, Co x P(D <= Q).\n\nWorked example: price 100, cost 60, demand ~ Normal(500, 100).\n- Salvage 20: Cu = 40, Co = 40, critical ratio 0.5, so Q* = 500.\n- Salvage 40: Co = 20, ratio 0.667, z about 0.43, so Q* about 543. Cheaper leftovers justify ordering more.\n\nThe critical ratio is also the bridge to (R, S) policies, see [review policies](review-policies.md).\n",
+      "---\ntype: metric\ntitle: Forecast accuracy metrics\ndescription: MAE, RMSE, MAPE, WMAPE, MASE, bias, tracking signal, pinball loss and when to use MAPE vs WMAPE\n---\n| Metric | Formula | Notes |\n|---|---|---|\n| MAE | mean abs(A - F) | Scale-dependent |\n| RMSE | sqrt(mean (A - F)^2) | Penalizes big misses |\n| MAPE | mean abs(A - F) / A | Undefined at A = 0, explodes on low volume, penalizes over-forecasts more |\n| WMAPE | Sum abs(A - F) / Sum A | Industry default; volume-weighted, robust to zeros |\n| MASE | MAE / in-sample naive MAE | Scale-free; < 1 means better than naive |\n| Bias | Sum(F - A) / Sum(A) | Sign shows over/under-forecasting |\n| Tracking signal | Cumulative error / MAD | Beyond about +-4 flags persistent bias (rule of thumb) |\n| Pinball loss | Quantile loss | For probabilistic forecasts |\n\nWhen MAPE vs WMAPE? WMAPE for SKU portfolios: volume-weighted, handles zeros. MAPE breaks on low-volume and zero-demand items.\n\nConsensus process: statistical forecast + market intelligence overrides; track bias by who overrides. Safety stock uses the standard deviation of forecast error at the replenishment lead time, so better forecasts translate directly into lower stock ([safety stock](safety-stock-and-rop.md)). Quantify that for the client in rupees, not WMAPE points.\n"
+    ],
+    "files_read": [
+      "safety-stock-and-rop.md",
+      "eoq.md",
+      "inventory-types.md",
+      "newsvendor.md",
+      "forecast-accuracy-metrics.md"
+    ],
+    "nav_calls": 2,
+    "retrieval_seconds": 7.156240224838257,
+    "units_read": 5,
+    "response": "In the worked example, adding lead-time variability increased safety stock from about 99 to about 344, more than tripling it. This implies that fixing supplier reliability can free more cash than better forecasting.",
+    "gen_seconds": 5.795717000961304,
+    "input_tokens": 1653,
+    "output_tokens": 42
+  },
+  {
+    "id": "m2",
+    "type": "multi_hop",
+    "question": "A SKU has ADI of 2.0 and CV2 of 0.3. Which demand category is it and which forecasting methods fit?",
+    "reference": "ADI >= 1.32 and CV2 < 0.49 is intermittent demand, suited to Croston, SBA or TSB.",
+    "retrieved_contexts": [
+      "---\ntype: method\ntitle: Classify the demand pattern (Syntetos-Boylan)\ndescription: ADI and CV2 cut-offs and which forecasting methods fit each quadrant\n---\nThe consulting answer is never \"I'd use LightGBM\". It is: classify the demand, set a naive baseline, pick methods per segment, validate with rolling backtests, and measure in the metric the decision uses.\n\nSyntetos-Boylan classification uses ADI (average interval between non-zero demands) and CV2 (squared coefficient of variation of non-zero demand sizes). The usual cut-offs are ADI = 1.32 and CV2 = 0.49.\n\n| | CV2 < 0.49 | CV2 >= 0.49 |\n|---|---|---|\n| ADI < 1.32 | Smooth: ETS, ARIMA, ML | Erratic: ML with features, wider safety stock |\n| ADI >= 1.32 | Intermittent: Croston, SBA, TSB | Lumpy: Croston-type or aggregate up, consider MTO |\n\nMethods: [baselines, ETS and ARIMA](forecasting-methods.md), [intermittent demand](intermittent-demand.md), [ML global models](ml-forecasting.md).\n",
+      "---\ntype: method\ntitle: Baselines, exponential smoothing and ARIMA\ndescription: Naive baselines, SES/Holt/Holt-Winters, damped trend, ARIMA/SARIMA\n---\nBaselines (always report these): naive (last value), seasonal naive (same period last year/week), moving average. A model that can't beat seasonal naive is not worth deploying.\n\nExponential smoothing (ETS): simple exponential smoothing is level only, l_t = alpha y_t + (1 - alpha) l_(t-1). Holt adds trend. Holt-Winters adds seasonality; additive when seasonal swings are constant in size, multiplicative when they scale with level. Damped trend is often the safer default for longer horizons.\n\nARIMA / SARIMA: AR(p) = regression on own lags, I(d) = differencing for stationarity, MA(q) = regression on past errors. SARIMA adds seasonal terms. Identify via ACF/PACF or auto-search on AIC. ARIMAX adds regressors like price or promo. Weakness at scale: one model per series, slow across thousands of SKUs.\n\nChoosing a method depends on the [demand pattern](demand-classification.md). Check against baselines using [forecast validation](forecast-validation.md).\n",
+      "---\ntype: method\ntitle: Intermittent demand: Croston, SBA, TSB\ndescription: Methods for sporadic demand and how each fixes the previous one's bias\n---\nCroston: separately smooths non-zero demand size and the interval between demands; forecast = size / interval.\n\nCroston is biased upward; SBA corrects it with a factor (1 - alpha/2).\n\nTSB smooths demand probability every period instead of interval, so it decays toward zero for obsolete items.\n\nUsed for the intermittent quadrant of the [demand classification](demand-classification.md). For lumpy demand consider aggregating up or make-to-order.\n",
+      "---\ntype: method\ntitle: ML global models and probabilistic forecasts\ndescription: One LightGBM/XGBoost across all SKUs, features, lag leakage, deep learning, quantile forecasts\n---\nOne gradient-boosted model (LightGBM/XGBoost) trained across all SKU-store series shares patterns across series and handles thousands of SKUs.\n\nFeatures: lags (t-1, t-7, t-52), rolling means and std, calendar (week, month, holidays, paydays), price and discount depth, promo flags, display/feature, stockout flags, SKU and store attributes, weather where relevant.\n\nLags must respect the horizon: to forecast 4 weeks out, the shortest usable lag is 4 weeks. Using lag-1 for a 4-week horizon is leakage. Freeze features as known at forecast time; promo plans that change later are a common hidden leak. See [forecast validation](forecast-validation.md).\n\nDeep learning options you can name: DeepAR, N-BEATS, Temporal Fusion Transformer. Usually only worth it at large scale.\n\nProbabilistic forecasts: inventory needs a distribution, not a point. Use quantile regression (pinball loss) in LightGBM, or residual-based intervals. The 95th percentile forecast feeds [safety stock](safety-stock-and-rop.md) directly.\n",
+      "---\ntype: method\ntitle: Validating a forecasting model\ndescription: Rolling-origin backtests, error by horizon, baselines, leakage\n---\nRolling-origin backtest (time-series cross-validation): train up to t, forecast t+1...t+h, roll t forward, average errors. Never a random train/test split.\n\nReport error by horizon (lag), since planners act on a specific lag (for example, the 4-week-ahead forecast that drives a purchase order). Compare against seasonal naive ([baselines](forecasting-methods.md)). Avoid leakage from future-known features ([ML forecasting](ml-forecasting.md)).\n\nForecast value add (FVA): compare each step (statistical model, planner override, consensus) against naive. If planner overrides make accuracy worse, show it; it is a strong consulting insight. Metrics are in [forecast accuracy metrics](forecast-accuracy-metrics.md).\n"
+    ],
+    "files_read": [
+      "demand-classification.md",
+      "forecasting-methods.md",
+      "intermittent-demand.md",
+      "ml-forecasting.md",
+      "forecast-validation.md"
+    ],
+    "nav_calls": 2,
+    "retrieval_seconds": 4.1669580936431885,
+    "units_read": 5,
+    "response": "The SKU is classified as Smooth, with ADI < 1.32 and CV2 < 0.49. The forecasting methods that fit are ETS, ARIMA, and ML.",
+    "gen_seconds": 4.865695953369141,
+    "input_tokens": 1217,
+    "output_tokens": 40
+  },
+  {
+    "id": "m3",
+    "type": "multi_hop",
+    "question": "Why should safety stock use forecast error standard deviation instead of raw demand standard deviation, and how should the benefit of better forecasts be presented to a client?",
+    "reference": "Safety stock covers what cannot be predicted; seasonal demand has high sigma but may be forecast well. Better forecasts lower safety stock directly, and the benefit should be quantified in rupees rather than WMAPE points.",
+    "retrieved_contexts": [
+      "---\ntype: formula\ntitle: Safety stock and reorder point\ndescription: SS formulas with demand and lead-time variability, z-values, worked example and refinements\n---\nSS = z x sigma_d x sqrt(L) (demand variability only).\nSS = z x sqrt(L x sigma_d^2 + d-bar^2 x sigma_L^2) (demand and lead-time variability).\nROP = d-bar x L + SS.\n\nz from target cycle service level: 90% -> 1.28, 95% -> 1.645, 98% -> 2.05, 99% -> 2.33.\n\nWorked example: d-bar = 100/day, sigma_d = 20, L = 9 days, 95% CSL.\n- Demand variability only: SS = 1.645 x 20 x 3 = about 99, ROP = 900 + 99 = 999.\n- Add lead-time sigma_L = 2 days: SS = 1.645 x sqrt(9 x 400 + 10,000 x 4) = 1.645 x sqrt(43,600) = about 344.\n\nInsight to say out loud: lead-time variability more than tripled safety stock. Fixing supplier reliability can free more cash than better forecasting. Lead-time variance enters multiplied by d-bar^2, so it often dominates.\n\nTwo refinements interviewers like:\n1. sigma_d should be the forecast error standard deviation, not raw demand sigma. Seasonal demand has high sigma but may be well forecast. Safety stock covers what you can't predict. Better forecasts translate directly into lower stock (see [forecast accuracy metrics](forecast-accuracy-metrics.md)); quantify that for the client in rupees, not WMAPE points.\n2. The formula targets CSL. For a fill rate target beta, use the expected shortage per cycle: beta = 1 - sigma_LT x G(z) / Q, where G(z) = phi(z) - z(1 - Phi(z)) is the standard normal loss function. Solve for z. See [CSL vs fill rate](csl-vs-fill-rate.md).\n\nPeriodic review needs more: see [review policies](review-policies.md). Pooling reduces it: see [risk pooling](risk-pooling-multiechelon.md).\n",
+      "---\ntype: metric\ntitle: Forecast accuracy metrics\ndescription: MAE, RMSE, MAPE, WMAPE, MASE, bias, tracking signal, pinball loss and when to use MAPE vs WMAPE\n---\n| Metric | Formula | Notes |\n|---|---|---|\n| MAE | mean abs(A - F) | Scale-dependent |\n| RMSE | sqrt(mean (A - F)^2) | Penalizes big misses |\n| MAPE | mean abs(A - F) / A | Undefined at A = 0, explodes on low volume, penalizes over-forecasts more |\n| WMAPE | Sum abs(A - F) / Sum A | Industry default; volume-weighted, robust to zeros |\n| MASE | MAE / in-sample naive MAE | Scale-free; < 1 means better than naive |\n| Bias | Sum(F - A) / Sum(A) | Sign shows over/under-forecasting |\n| Tracking signal | Cumulative error / MAD | Beyond about +-4 flags persistent bias (rule of thumb) |\n| Pinball loss | Quantile loss | For probabilistic forecasts |\n\nWhen MAPE vs WMAPE? WMAPE for SKU portfolios: volume-weighted, handles zeros. MAPE breaks on low-volume and zero-demand items.\n\nConsensus process: statistical forecast + market intelligence overrides; track bias by who overrides. Safety stock uses the standard deviation of forecast error at the replenishment lead time, so better forecasts translate directly into lower stock ([safety stock](safety-stock-and-rop.md)). Quantify that for the client in rupees, not WMAPE points.\n",
+      "---\ntype: concept\ntitle: Why inventory exists and the cost trade-off\ndescription: Ordering, holding and shortage costs and the five types of stock\n---\nEvery inventory model trades off three costs: ordering (S per order), holding (h = i x c per unit per year, where i is the carrying rate) and shortage. Be ready to derive [EOQ](eoq.md) and the [newsvendor](newsvendor.md) on a whiteboard.\n\n| Type | Purpose |\n|---|---|\n| Cycle stock | Ordering in batches (Q/2 on average) |\n| Safety stock | Buffer against demand and lead-time uncertainty, see [safety stock](safety-stock-and-rop.md) |\n| Pipeline stock | In transit; average = d-bar x L (Little's law) |\n| Anticipation stock | Pre-build for seasons or promotions |\n| Decoupling stock | Lets stages run independently |\n"
+    ],
+    "files_read": [
+      "safety-stock-and-rop.md",
+      "forecast-accuracy-metrics.md",
+      "inventory-types.md"
+    ],
+    "nav_calls": 2,
+    "retrieval_seconds": 5.925230026245117,
+    "units_read": 3,
+    "response": "Safety stock should use forecast error standard deviation instead of raw demand standard deviation because it covers what you can't predict. Better forecasts translate directly into lower stock, and the benefit should be quantified for the client in rupees, not WMAPE points.",
+    "gen_seconds": 4.158322095870972,
+    "input_tokens": 1098,
+    "output_tokens": 52
+  },
+  {
+    "id": "m4",
+    "type": "multi_hop",
+    "question": "Fill rate is 92% but OTIF is 70%. How is that possible?",
+    "reference": "Fill rate counts units, whereas OTIF fails the whole order if any line is short or late. Many orders are missing a few lines or are complete but late, so lateness should be checked separately.",
+    "retrieved_contexts": [
+      "---\ntype: metric\ntitle: Key supply chain metrics\ndescription: Fill rate, OTIF, perfect order, inventory turns, days of supply, cash-to-cash, forecast accuracy, OEE, cost to serve\n---\n| Metric | Formula | Watch out for |\n|---|---|---|\n| Unit fill rate | Units shipped from stock on first attempt / units ordered | Line fill and order fill are stricter variants |\n| OTIF | Orders delivered on time and in full / total orders | Definition of \"on time\" (requested vs promised date) varies by client |\n| Perfect order rate | Share of orders that are OTIF, undamaged and correctly documented | Often approximated as a product of component rates (assumes independence) |\n| Inventory turns | COGS / average inventory value | Higher is leaner, but too high risks stockouts |\n| Days of supply (DOS / DOH) | Average inventory / average daily COGS, or 365 / turns | Forward-looking DOS uses forecast demand instead |\n| Cash-to-cash cycle | DIO + DSO - DPO | Inventory (DIO) is the lever SC teams own |\n| Forecast accuracy | 1 - WMAPE | Measure at the grain and lag that drives decisions; see [forecast accuracy metrics](forecast-accuracy-metrics.md) |\n| Forecast bias | Sum(F - A) / Sum(A) | Persistent positive bias = excess stock |\n| OEE | Availability x Performance x Quality | Manufacturing only |\n| Cost to serve | Total cost (logistics, handling, service) per customer or order | Reveals unprofitable customers/channels |\n\nSelf-test: fill rate 92% but OTIF 70%? Fill rate counts units; OTIF fails the whole order if any line is short or late. Many orders are missing a few lines, or are complete but late. Check lateness separately.\n\nRelated: [cycle service level vs fill rate](csl-vs-fill-rate.md).\n",
+      "---\ntype: concept\ntitle: Cycle service level vs fill rate\ndescription: Two service targets that are not the same and how they relate\n---\nCSL = probability of no stockout in a replenishment cycle. Fill rate = fraction of demand met from stock.\n\nThey differ: a stockout late in a cycle may miss only a few units, so fill rate is usually higher than CSL for the same policy, especially when order quantities are large. Always ask the client which one their target means.\n\nThe [safety stock formula](safety-stock-and-rop.md) targets CSL; for a fill rate target use the expected shortage per cycle (see that page). Order-level service is measured by OTIF in [supply chain metrics](supply-chain-metrics.md).\n"
+    ],
+    "files_read": [
+      "supply-chain-metrics.md",
+      "csl-vs-fill-rate.md"
+    ],
+    "nav_calls": 2,
+    "retrieval_seconds": 3.490633010864258,
+    "units_read": 2,
+    "response": "Fill rate counts units, while OTIF fails the whole order if any line is short or late. Many orders are missing a few lines, or are complete but late, which skews the OTIF metric lower.",
+    "gen_seconds": 2.405575752258301,
+    "input_tokens": 631,
+    "output_tokens": 44
+  },
+  {
+    "id": "m5",
+    "type": "multi_hop",
+    "question": "How much safety stock is saved by merging four DCs into one, and when does the benefit disappear?",
+    "reference": "Total safety stock falls by a factor of sqrt(4), so about half is needed. The benefit shrinks as demand correlation rises and is zero at perfect positive correlation.",
+    "retrieved_contexts": [
+      "---\ntype: concept\ntitle: Risk pooling and multi-echelon inventory\ndescription: Square-root law, when pooling benefit disappears, stochastic vs guaranteed service models\n---\nRisk pooling (square-root law): with n identical locations and independent demand, centralizing stock cuts total safety stock by a factor of sqrt(n). Four DCs merged into one need half the safety stock. The benefit shrinks as demand correlation rises and is zero at perfect positive correlation.\n\nMulti-echelon optimization decides where in the network to hold safety stock (plant, central DC, regional DC). Two model families:\n- Stochastic service model (from Clark and Scarf's work): lead times vary when upstream stocks out.\n- Guaranteed service model (Graves and Willems): each stage promises a service time to the next; optimize where to buffer. Common in commercial tools.\n\nYou are unlikely to be asked the math; explain echelon stock (stock at a node plus everything downstream) and the trade-off between pooling upstream and responsiveness downstream. Base formula: [safety stock](safety-stock-and-rop.md).\n",
+      "---\ntype: formula\ntitle: Safety stock and reorder point\ndescription: SS formulas with demand and lead-time variability, z-values, worked example and refinements\n---\nSS = z x sigma_d x sqrt(L) (demand variability only).\nSS = z x sqrt(L x sigma_d^2 + d-bar^2 x sigma_L^2) (demand and lead-time variability).\nROP = d-bar x L + SS.\n\nz from target cycle service level: 90% -> 1.28, 95% -> 1.645, 98% -> 2.05, 99% -> 2.33.\n\nWorked example: d-bar = 100/day, sigma_d = 20, L = 9 days, 95% CSL.\n- Demand variability only: SS = 1.645 x 20 x 3 = about 99, ROP = 900 + 99 = 999.\n- Add lead-time sigma_L = 2 days: SS = 1.645 x sqrt(9 x 400 + 10,000 x 4) = 1.645 x sqrt(43,600) = about 344.\n\nInsight to say out loud: lead-time variability more than tripled safety stock. Fixing supplier reliability can free more cash than better forecasting. Lead-time variance enters multiplied by d-bar^2, so it often dominates.\n\nTwo refinements interviewers like:\n1. sigma_d should be the forecast error standard deviation, not raw demand sigma. Seasonal demand has high sigma but may be well forecast. Safety stock covers what you can't predict. Better forecasts translate directly into lower stock (see [forecast accuracy metrics](forecast-accuracy-metrics.md)); quantify that for the client in rupees, not WMAPE points.\n2. The formula targets CSL. For a fill rate target beta, use the expected shortage per cycle: beta = 1 - sigma_LT x G(z) / Q, where G(z) = phi(z) - z(1 - Phi(z)) is the standard normal loss function. Solve for z. See [CSL vs fill rate](csl-vs-fill-rate.md).\n\nPeriodic review needs more: see [review policies](review-policies.md). Pooling reduces it: see [risk pooling](risk-pooling-multiechelon.md).\n",
+      "---\ntype: concept\ntitle: SCOR model and core supply chain terms\ndescription: Plan-Source-Make-Deliver-Return framing and the vocabulary interviewers expect\n---\nThe classic SCOR model splits the chain into Plan, Source, Make, Deliver, Return (plus Enable). The newer SCOR Digital Standard renamed some of these; verify the current labels if you cite it by name.\n\nUseful terms: FTL vs LTL, cross-dock (no storage, direct transfer), 3PL, inbound vs outbound logistics, MTS / MTO / ATO / ETO (make-to-stock, make-to-order, assemble-to-order, engineer-to-order), push vs pull, and the customer order decoupling point (where forecast-driven push turns into order-driven pull).\n\nInterviewers use this to check you speak the planner's language. Tie every model you mention to a metric, see [supply chain metrics](supply-chain-metrics.md). Decisions by function are in the [planning hierarchy](planning-hierarchy.md).\n"
+    ],
+    "files_read": [
+      "risk-pooling-multiechelon.md",
+      "safety-stock-and-rop.md",
+      "scor-and-terms.md"
+    ],
+    "nav_calls": 2,
+    "retrieval_seconds": 6.147672891616821,
+    "units_read": 3,
+    "response": "The benefit of merging four DCs into one is that the total safety stock is cut by a factor of sqrt(4) = 2. The benefit disappears when demand correlation rises to perfect positive correlation.",
+    "gen_seconds": 5.149416923522949,
+    "input_tokens": 990,
+    "output_tokens": 42
+  },
+  {
+    "id": "m6",
+    "type": "multi_hop",
+    "question": "For a 4-week-ahead forecast, what is the shortest usable lag, and what is the problem with using lag-1?",
+    "reference": "The shortest usable lag is 4 weeks. Using lag-1 for a 4-week horizon is leakage.",
+    "retrieved_contexts": [
+      "---\ntype: method\ntitle: Validating a forecasting model\ndescription: Rolling-origin backtests, error by horizon, baselines, leakage\n---\nRolling-origin backtest (time-series cross-validation): train up to t, forecast t+1...t+h, roll t forward, average errors. Never a random train/test split.\n\nReport error by horizon (lag), since planners act on a specific lag (for example, the 4-week-ahead forecast that drives a purchase order). Compare against seasonal naive ([baselines](forecasting-methods.md)). Avoid leakage from future-known features ([ML forecasting](ml-forecasting.md)).\n\nForecast value add (FVA): compare each step (statistical model, planner override, consensus) against naive. If planner overrides make accuracy worse, show it; it is a strong consulting insight. Metrics are in [forecast accuracy metrics](forecast-accuracy-metrics.md).\n",
+      "---\ntype: method\ntitle: ML global models and probabilistic forecasts\ndescription: One LightGBM/XGBoost across all SKUs, features, lag leakage, deep learning, quantile forecasts\n---\nOne gradient-boosted model (LightGBM/XGBoost) trained across all SKU-store series shares patterns across series and handles thousands of SKUs.\n\nFeatures: lags (t-1, t-7, t-52), rolling means and std, calendar (week, month, holidays, paydays), price and discount depth, promo flags, display/feature, stockout flags, SKU and store attributes, weather where relevant.\n\nLags must respect the horizon: to forecast 4 weeks out, the shortest usable lag is 4 weeks. Using lag-1 for a 4-week horizon is leakage. Freeze features as known at forecast time; promo plans that change later are a common hidden leak. See [forecast validation](forecast-validation.md).\n\nDeep learning options you can name: DeepAR, N-BEATS, Temporal Fusion Transformer. Usually only worth it at large scale.\n\nProbabilistic forecasts: inventory needs a distribution, not a point. Use quantile regression (pinball loss) in LightGBM, or residual-based intervals. The 95th percentile forecast feeds [safety stock](safety-stock-and-rop.md) directly.\n",
+      "---\ntype: concept\ntitle: Practical forecasting issues in cases\ndescription: Censored demand, promotions, new products, outliers\n---\n- Censored demand: sales are not demand during stockouts. Flag stockout periods and impute or exclude them, or the model learns to under-forecast.\n- Promotions: model uplift explicitly; also cannibalization (other SKUs drop) and halo (complements rise), plus the post-promo dip from pantry loading.\n- New products (cold start): forecast from similar products (attribute-based similarity or clusters), or use a launch-curve analog scaled by early sales. Widen safety stock until history builds.\n- Outliers and structural breaks: COVID-type periods; down-weight, flag, or drop them.\n\nRelated: [ML forecasting features](ml-forecasting.md).\n"
+    ],
+    "files_read": [
+      "forecast-validation.md",
+      "ml-forecasting.md",
+      "forecasting-practical-issues.md"
+    ],
+    "nav_calls": 2,
+    "retrieval_seconds": 4.580371141433716,
+    "units_read": 3,
+    "response": "The shortest usable lag for a 4-week-ahead forecast is 4 weeks. Using lag-1 for a 4-week horizon is leakage.",
+    "gen_seconds": 3.619102954864502,
+    "input_tokens": 708,
+    "output_tokens": 30
+  },
+  {
+    "id": "m7",
+    "type": "multi_hop",
+    "question": "In the ABC/XYZ matrix, which cell should consider make-to-order or postponement, and which should consider delisting?",
+    "reference": "AZ (high value, erratic) needs planner attention and should consider MTO or postponement; CZ should consider delisting or MTO.",
+    "retrieved_contexts": [
+      "---\ntype: method\ntitle: ABC / XYZ segmentation\ndescription: Applying different inventory policies to different SKUs by value and variability\n---\nThe point is to apply different policies to different SKUs instead of one rule for all.\n\nABC ranks SKUs by annual consumption value (volume x unit cost). Common cut-offs: A = top 70-80% of value, B = next 15-20%, C = the rest. These are conventions, not rules.\n\nXYZ ranks by demand variability, using coefficient of variation CoV = sigma / mu of period demand. Thresholds such as X < 0.5, Y 0.5-1, Z > 1 are common but arbitrary; justify yours from the data.\n\n| | X (stable) | Y (variable) | Z (erratic) |\n|---|---|---|---|\n| A | Tight control, low SS, automated replenishment | Statistical SS, frequent review | Planner attention, consider MTO or postponement |\n| B | Automated, standard policy | Standard statistical policy | Review policy fit |\n| C | Automate fully, larger lots | Simple rules | Consider delisting or MTO |\n\nOther schemes: FSN (fast / slow / non-moving), VED (vital / essential / desirable) for spares.\n\nIf inventory is high and service poor at the same time, one cause is a single policy for all SKUs; fix with ABC/XYZ-based policies. See [interview self-test](interview-self-test.md) and [review policies](review-policies.md).\n",
+      "---\ntype: concept\ntitle: Why inventory exists and the cost trade-off\ndescription: Ordering, holding and shortage costs and the five types of stock\n---\nEvery inventory model trades off three costs: ordering (S per order), holding (h = i x c per unit per year, where i is the carrying rate) and shortage. Be ready to derive [EOQ](eoq.md) and the [newsvendor](newsvendor.md) on a whiteboard.\n\n| Type | Purpose |\n|---|---|\n| Cycle stock | Ordering in batches (Q/2 on average) |\n| Safety stock | Buffer against demand and lead-time uncertainty, see [safety stock](safety-stock-and-rop.md) |\n| Pipeline stock | In transit; average = d-bar x L (Little's law) |\n| Anticipation stock | Pre-build for seasons or promotions |\n| Decoupling stock | Lets stages run independently |\n",
+      "---\ntype: method\ntitle: ABC / XYZ segmentation\ndescription: Applying different inventory policies to different SKUs by value and variability\n---\nThe point is to apply different policies to different SKUs instead of one rule for all.\n\nABC ranks SKUs by annual consumption value (volume x unit cost). Common cut-offs: A = top 70-80% of value, B = next 15-20%, C = the rest. These are conventions, not rules.\n\nXYZ ranks by demand variability, using coefficient of variation CoV = sigma / mu of period demand. Thresholds such as X < 0.5, Y 0.5-1, Z > 1 are common but arbitrary; justify yours from the data.\n\n| | X (stable) | Y (variable) | Z (erratic) |\n|---|---|---|---|\n| A | Tight control, low SS, automated replenishment | Statistical SS, frequent review | Planner attention, consider MTO or postponement |\n| B | Automated, standard policy | Standard statistical policy | Review policy fit |\n| C | Automate fully, larger lots | Simple rules | Consider delisting or MTO |\n\nOther schemes: FSN (fast / slow / non-moving), VED (vital / essential / desirable) for spares.\n\nIf inventory is high and service poor at the same time, one cause is a single policy for all SKUs; fix with ABC/XYZ-based policies. See [interview self-test](interview-self-test.md) and [review policies](review-policies.md).\n"
+    ],
+    "files_read": [
+      "abc-xyz-segmentation.md",
+      "inventory-types.md",
+      "abc-xyz-segmentation.md"
+    ],
+    "nav_calls": 2,
+    "retrieval_seconds": 4.849372863769531,
+    "units_read": 3,
+    "response": "In the ABC/XYZ matrix, the cell that should consider make-to-order or postponement is Z (erratic) in the A (high value) category, and the cell that should consider delisting is Z (erratic) in the C (low value) category.",
+    "gen_seconds": 5.513975620269775,
+    "input_tokens": 915,
+    "output_tokens": 57
+  },
+  {
+    "id": "m8",
+    "type": "multi_hop",
+    "question": "In the newsvendor example with price 100 and cost 60, what is the optimal order quantity when salvage is 40, and why is it higher than when salvage is 20?",
+    "reference": "With salvage 40, Co = 20 and Cu = 40, critical ratio 0.667 (z about 0.43), so Q* is about 543, versus 500 at salvage 20. Cheaper leftovers justify ordering more.",
+    "retrieved_contexts": [
+      "---\ntype: formula\ntitle: Newsvendor model (single period)\ndescription: Critical ratio, underage and overage cost, worked example with two salvage values\n---\nFor perishable or seasonal items: order once, leftover is salvaged, shortage is lost.\n\nUnderage cost Cu = price - cost (margin lost per unit short). Overage cost Co = cost - salvage (loss per unit left over). F(Q*) = Cu / (Cu + Co).\n\nMarginal argument: increase Q while the expected gain of one more unit, Cu x P(D > Q), exceeds the expected loss, Co x P(D <= Q).\n\nWorked example: price 100, cost 60, demand ~ Normal(500, 100).\n- Salvage 20: Cu = 40, Co = 40, critical ratio 0.5, so Q* = 500.\n- Salvage 40: Co = 20, ratio 0.667, z about 0.43, so Q* about 543. Cheaper leftovers justify ordering more.\n\nThe critical ratio is also the bridge to (R, S) policies, see [review policies](review-policies.md).\n",
+      "---\ntype: formula\ntitle: Safety stock and reorder point\ndescription: SS formulas with demand and lead-time variability, z-values, worked example and refinements\n---\nSS = z x sigma_d x sqrt(L) (demand variability only).\nSS = z x sqrt(L x sigma_d^2 + d-bar^2 x sigma_L^2) (demand and lead-time variability).\nROP = d-bar x L + SS.\n\nz from target cycle service level: 90% -> 1.28, 95% -> 1.645, 98% -> 2.05, 99% -> 2.33.\n\nWorked example: d-bar = 100/day, sigma_d = 20, L = 9 days, 95% CSL.\n- Demand variability only: SS = 1.645 x 20 x 3 = about 99, ROP = 900 + 99 = 999.\n- Add lead-time sigma_L = 2 days: SS = 1.645 x sqrt(9 x 400 + 10,000 x 4) = 1.645 x sqrt(43,600) = about 344.\n\nInsight to say out loud: lead-time variability more than tripled safety stock. Fixing supplier reliability can free more cash than better forecasting. Lead-time variance enters multiplied by d-bar^2, so it often dominates.\n\nTwo refinements interviewers like:\n1. sigma_d should be the forecast error standard deviation, not raw demand sigma. Seasonal demand has high sigma but may be well forecast. Safety stock covers what you can't predict. Better forecasts translate directly into lower stock (see [forecast accuracy metrics](forecast-accuracy-metrics.md)); quantify that for the client in rupees, not WMAPE points.\n2. The formula targets CSL. For a fill rate target beta, use the expected shortage per cycle: beta = 1 - sigma_LT x G(z) / Q, where G(z) = phi(z) - z(1 - Phi(z)) is the standard normal loss function. Solve for z. See [CSL vs fill rate](csl-vs-fill-rate.md).\n\nPeriodic review needs more: see [review policies](review-policies.md). Pooling reduces it: see [risk pooling](risk-pooling-multiechelon.md).\n",
+      "---\ntype: method\ntitle: Inventory review policies\ndescription: Periodic vs continuous review safety stock and the (s,Q), (s,S), (R,S), (R,s,S), base stock policies\n---\nPeriodic review must cover R + L, not just L: SS = z x sigma_d x sqrt(R + L) and S = d-bar (R + L) + SS.\n\nSame numbers as the [safety stock example](safety-stock-and-rop.md) with R = 7: SS = 1.645 x 20 x 4 = about 132, S = about 1,732. Periodic review always needs more safety stock than continuous review.\n\n| Policy | Rule | Fits |\n|---|---|---|\n| (s, Q) continuous review | When inventory position <= s, order fixed Q | A items, systems with real-time stock visibility |\n| (s, S) continuous review | When <= s, order up to S | Lumpy demand, variable order sizes acceptable |\n| (R, S) periodic review | Every R periods, order up to S | Coordinated ordering from one supplier, simpler ops |\n| (R, s, S) | Every R, if <= s, order up to S | Fewer small orders; harder to optimize |\n| Base stock (S-1, S) | Replace each unit as sold | Expensive, slow-moving parts |\n\nThe order-up-to level is a newsvendor fractile over R + L, see [newsvendor](newsvendor.md).\n",
+      "---\ntype: concept\ntitle: Risk pooling and multi-echelon inventory\ndescription: Square-root law, when pooling benefit disappears, stochastic vs guaranteed service models\n---\nRisk pooling (square-root law): with n identical locations and independent demand, centralizing stock cuts total safety stock by a factor of sqrt(n). Four DCs merged into one need half the safety stock. The benefit shrinks as demand correlation rises and is zero at perfect positive correlation.\n\nMulti-echelon optimization decides where in the network to hold safety stock (plant, central DC, regional DC). Two model families:\n- Stochastic service model (from Clark and Scarf's work): lead times vary when upstream stocks out.\n- Guaranteed service model (Graves and Willems): each stage promises a service time to the next; optimize where to buffer. Common in commercial tools.\n\nYou are unlikely to be asked the math; explain echelon stock (stock at a node plus everything downstream) and the trade-off between pooling upstream and responsiveness downstream. Base formula: [safety stock](safety-stock-and-rop.md).\n",
+      "---\ntype: metric\ntitle: Forecast accuracy metrics\ndescription: MAE, RMSE, MAPE, WMAPE, MASE, bias, tracking signal, pinball loss and when to use MAPE vs WMAPE\n---\n| Metric | Formula | Notes |\n|---|---|---|\n| MAE | mean abs(A - F) | Scale-dependent |\n| RMSE | sqrt(mean (A - F)^2) | Penalizes big misses |\n| MAPE | mean abs(A - F) / A | Undefined at A = 0, explodes on low volume, penalizes over-forecasts more |\n| WMAPE | Sum abs(A - F) / Sum A | Industry default; volume-weighted, robust to zeros |\n| MASE | MAE / in-sample naive MAE | Scale-free; < 1 means better than naive |\n| Bias | Sum(F - A) / Sum(A) | Sign shows over/under-forecasting |\n| Tracking signal | Cumulative error / MAD | Beyond about +-4 flags persistent bias (rule of thumb) |\n| Pinball loss | Quantile loss | For probabilistic forecasts |\n\nWhen MAPE vs WMAPE? WMAPE for SKU portfolios: volume-weighted, handles zeros. MAPE breaks on low-volume and zero-demand items.\n\nConsensus process: statistical forecast + market intelligence overrides; track bias by who overrides. Safety stock uses the standard deviation of forecast error at the replenishment lead time, so better forecasts translate directly into lower stock ([safety stock](safety-stock-and-rop.md)). Quantify that for the client in rupees, not WMAPE points.\n"
+    ],
+    "files_read": [
+      "newsvendor.md",
+      "safety-stock-and-rop.md",
+      "review-policies.md",
+      "risk-pooling-multiechelon.md",
+      "forecast-accuracy-metrics.md"
+    ],
+    "nav_calls": 2,
+    "retrieval_seconds": 5.739596843719482,
+    "units_read": 5,
+    "response": "The optimal order quantity when salvage is 40 is about 543. This is higher than when salvage is 20 (Q* = 500) because cheaper leftovers justify ordering more.",
+    "gen_seconds": 7.817375183105469,
+    "input_tokens": 1703,
+    "output_tokens": 38
+  },
+  {
+    "id": "m9",
+    "type": "multi_hop",
+    "question": "Using the same demand numbers as the continuous review example, what safety stock and order-up-to level does periodic review with R = 7 need, and how does it compare?",
+    "reference": "SS is about 132 and S is about 1,732 (using sqrt(R+L) = 4). Periodic review always needs more safety stock than continuous review, which needed about 99.",
+    "retrieved_contexts": [
+      "---\ntype: formula\ntitle: Safety stock and reorder point\ndescription: SS formulas with demand and lead-time variability, z-values, worked example and refinements\n---\nSS = z x sigma_d x sqrt(L) (demand variability only).\nSS = z x sqrt(L x sigma_d^2 + d-bar^2 x sigma_L^2) (demand and lead-time variability).\nROP = d-bar x L + SS.\n\nz from target cycle service level: 90% -> 1.28, 95% -> 1.645, 98% -> 2.05, 99% -> 2.33.\n\nWorked example: d-bar = 100/day, sigma_d = 20, L = 9 days, 95% CSL.\n- Demand variability only: SS = 1.645 x 20 x 3 = about 99, ROP = 900 + 99 = 999.\n- Add lead-time sigma_L = 2 days: SS = 1.645 x sqrt(9 x 400 + 10,000 x 4) = 1.645 x sqrt(43,600) = about 344.\n\nInsight to say out loud: lead-time variability more than tripled safety stock. Fixing supplier reliability can free more cash than better forecasting. Lead-time variance enters multiplied by d-bar^2, so it often dominates.\n\nTwo refinements interviewers like:\n1. sigma_d should be the forecast error standard deviation, not raw demand sigma. Seasonal demand has high sigma but may be well forecast. Safety stock covers what you can't predict. Better forecasts translate directly into lower stock (see [forecast accuracy metrics](forecast-accuracy-metrics.md)); quantify that for the client in rupees, not WMAPE points.\n2. The formula targets CSL. For a fill rate target beta, use the expected shortage per cycle: beta = 1 - sigma_LT x G(z) / Q, where G(z) = phi(z) - z(1 - Phi(z)) is the standard normal loss function. Solve for z. See [CSL vs fill rate](csl-vs-fill-rate.md).\n\nPeriodic review needs more: see [review policies](review-policies.md). Pooling reduces it: see [risk pooling](risk-pooling-multiechelon.md).\n",
+      "---\ntype: method\ntitle: Inventory review policies\ndescription: Periodic vs continuous review safety stock and the (s,Q), (s,S), (R,S), (R,s,S), base stock policies\n---\nPeriodic review must cover R + L, not just L: SS = z x sigma_d x sqrt(R + L) and S = d-bar (R + L) + SS.\n\nSame numbers as the [safety stock example](safety-stock-and-rop.md) with R = 7: SS = 1.645 x 20 x 4 = about 132, S = about 1,732. Periodic review always needs more safety stock than continuous review.\n\n| Policy | Rule | Fits |\n|---|---|---|\n| (s, Q) continuous review | When inventory position <= s, order fixed Q | A items, systems with real-time stock visibility |\n| (s, S) continuous review | When <= s, order up to S | Lumpy demand, variable order sizes acceptable |\n| (R, S) periodic review | Every R periods, order up to S | Coordinated ordering from one supplier, simpler ops |\n| (R, s, S) | Every R, if <= s, order up to S | Fewer small orders; harder to optimize |\n| Base stock (S-1, S) | Replace each unit as sold | Expensive, slow-moving parts |\n\nThe order-up-to level is a newsvendor fractile over R + L, see [newsvendor](newsvendor.md).\n",
+      "---\ntype: concept\ntitle: Why inventory exists and the cost trade-off\ndescription: Ordering, holding and shortage costs and the five types of stock\n---\nEvery inventory model trades off three costs: ordering (S per order), holding (h = i x c per unit per year, where i is the carrying rate) and shortage. Be ready to derive [EOQ](eoq.md) and the [newsvendor](newsvendor.md) on a whiteboard.\n\n| Type | Purpose |\n|---|---|\n| Cycle stock | Ordering in batches (Q/2 on average) |\n| Safety stock | Buffer against demand and lead-time uncertainty, see [safety stock](safety-stock-and-rop.md) |\n| Pipeline stock | In transit; average = d-bar x L (Little's law) |\n| Anticipation stock | Pre-build for seasons or promotions |\n| Decoupling stock | Lets stages run independently |\n",
+      "---\ntype: formula\ntitle: Newsvendor model (single period)\ndescription: Critical ratio, underage and overage cost, worked example with two salvage values\n---\nFor perishable or seasonal items: order once, leftover is salvaged, shortage is lost.\n\nUnderage cost Cu = price - cost (margin lost per unit short). Overage cost Co = cost - salvage (loss per unit left over). F(Q*) = Cu / (Cu + Co).\n\nMarginal argument: increase Q while the expected gain of one more unit, Cu x P(D > Q), exceeds the expected loss, Co x P(D <= Q).\n\nWorked example: price 100, cost 60, demand ~ Normal(500, 100).\n- Salvage 20: Cu = 40, Co = 40, critical ratio 0.5, so Q* = 500.\n- Salvage 40: Co = 20, ratio 0.667, z about 0.43, so Q* about 543. Cheaper leftovers justify ordering more.\n\nThe critical ratio is also the bridge to (R, S) policies, see [review policies](review-policies.md).\n",
+      "---\ntype: formula\ntitle: Economic Order Quantity (EOQ)\ndescription: EOQ formula, robustness, worked example, EPQ and quantity discounts\n---\nAssumes constant known demand, fixed lead time, no shortages, instant replenishment.\n\nTC(Q) = (D/Q) S + (Q/2) h, and Q* = sqrt(2DS / h). At Q*, annual ordering cost = annual holding cost.\n\nRobustness: TC(Q)/TC(Q*) = 1/2 (Q/Q* + Q*/Q). Ordering 20% above Q* raises cost only about 1.7%; ordering 2x Q* raises it 25%. This flatness is why EOQ works despite rough cost inputs.\n\nWorked example: D = 12,000 units/yr, S = Rs 500/order, c = Rs 200, i = 25%, so h = Rs 50. Q* = sqrt(2 x 12,000 x 500 / 50) is about 490 units, about 24.5 orders a year, total cost about Rs 24,500.\n\nExtensions:\n- EPQ (production rate P > demand rate D): Q* = sqrt(2DS / (h(1 - D/P))).\n- Quantity discounts: compute Q* at each price; if it falls below that price's break, push it up to the break; pick the lowest total cost including purchase cost.\n\nCost parameters are explained in [why inventory exists](inventory-types.md).\n"
+    ],
+    "files_read": [
+      "safety-stock-and-rop.md",
+      "review-policies.md",
+      "inventory-types.md",
+      "newsvendor.md",
+      "eoq.md"
+    ],
+    "nav_calls": 2,
+    "retrieval_seconds": 7.452592134475708,
+    "units_read": 5,
+    "response": "Using the same demand numbers as the continuous review example (d-bar = 100/day, sigma_d = 20, L = 9 days, 95% CSL), for periodic review with R = 7, SS = 1.645 x 20 x 4 = about 132, and S = about 1,732. Periodic review always needs more safety stock than continuous review.",
+    "gen_seconds": 7.573080778121948,
+    "input_tokens": 1644,
+    "output_tokens": 83
+  },
+  {
+    "id": "m10",
+    "type": "multi_hop",
+    "question": "Which GA constraint-handling approach needs no penalty weight to tune, and which approach is preferred overall?",
+    "reference": "Deb's feasibility rules need no lambda to tune. Feasible-by-construction encodings or decoders are preferred when possible.",
+    "retrieved_contexts": [
+      "---\ntype: method\ntitle: Handling constraints in a GA\ndescription: Feasible by construction, repair, penalty, Deb's rules, death penalty\n---\nGA has no native way to handle constraints. Options, in rough order of preference:\n1. Feasible by construction: an encoding or decoder that can only produce feasible solutions (e.g., a greedy decoder that assigns customers to the cheapest DC with remaining capacity). Best when possible.\n2. Repair: fix infeasible children with a heuristic. Risk: biases the search toward the repair's habits.\n3. Penalty: fitness = cost + lambda x violation. Static lambda is hard to tune; too small and the GA converges to infeasible solutions, too large and it can't cross infeasible regions to reach better feasible ones. Dynamic or adaptive lambda (raise it over generations, or when the population is mostly infeasible) helps.\n4. Feasibility rules in selection (Deb's rules): feasible beats infeasible; between feasibles, lower cost wins; between infeasibles, lower violation wins. No lambda to tune.\n5. Death penalty (discard infeasibles): only when feasible solutions are easy to find.\n\nSee [encoding](ga-loop-and-encoding.md) and the [p-median example](p-median-ga-example.md).\n",
+      "---\ntype: concept\ntitle: Replacement, elitism and premature convergence\ndescription: Generational vs steady-state, elitism size, diversity fixes and monitoring\n---\nReplacement: generational means children replace the whole population; steady-state replaces a few worst each step.\n\nElitism: carry the top e individuals unchanged, so the best-so-far is never lost. Small e (1-5% of N) is typical; large e reduces diversity.\n\nPremature convergence: the population becomes near-identical early and best fitness plateaus. Fixes: lower selection pressure (smaller tournament, see [selection](ga-selection.md)), raise mutation (or adapt it when diversity drops), fitness sharing or crowding (penalize individuals in crowded regions), island models (sub-populations with occasional migration), restarts that keep the elite.\n\nMonitor diversity explicitly: average pairwise Hamming distance, or fitness standard deviation in the population.\n",
+      "---\ntype: concept\ntitle: GA theory: schema theorem and memetic algorithms\ndescription: What the schema theorem does and does not say, no optimality bound, memetic GA\n---\nSchema theorem (Holland): short, low-order, above-average schemata grow exponentially across generations. It motivates the building-block idea but is not a convergence guarantee.\n\nNo optimality guarantee and no bound: a GA cannot tell you how far you are from the optimum. That is the main argument against it when an exact method is feasible ([GA vs MILP](ga-vs-milp.md)).\n\nMemetic algorithms: GA plus local search on each child (e.g., 2-opt). Usually much stronger than plain GA on combinatorial problems.\n"
+    ],
+    "files_read": [
+      "ga-constraints.md",
+      "ga-elitism-diversity.md",
+      "ga-theory.md"
+    ],
+    "nav_calls": 2,
+    "retrieval_seconds": 5.56500506401062,
+    "units_read": 3,
+    "response": "Deb's rules need no penalty weight to tune. Feasible by construction is preferred overall.",
+    "gen_seconds": 3.274535894393921,
+    "input_tokens": 686,
+    "output_tokens": 21
+  },
+  {
+    "id": "m11",
+    "type": "multi_hop",
+    "question": "For the p-median GA example, how are solutions encoded, which selection is used, and how is the result validated?",
+    "reference": "A solution is a set of p distinct site indices. Selection is tournament with k = 2-3 and elitism of 1-2. Validation compares against the MILP optimum on small instances and the LP relaxation bound on large ones.",
+    "retrieved_contexts": [
+      "---\ntype: example\ntitle: Worked example: p-median facility location with a GA\ndescription: Encoding, fitness, crossover, mutation, selection and validation for p-median\n---\nChoose p of m candidate sites to minimize total demand-weighted distance.\n- Encoding: a set of p distinct site indices.\n- Fitness: assign each customer to its nearest open site, sum demand x distance. Feasible by construction ([constraints](ga-constraints.md)).\n- Crossover: pool the two parents' sites, keep common sites, fill to p from the rest (randomly or greedily by cost).\n- Mutation: swap one open site for a closed one.\n- Selection: tournament, k = 2-3, elitism of 1-2 ([selection](ga-selection.md)).\n- Validation: on small instances, compare against the MILP optimum; on large ones, against the LP relaxation bound to estimate the gap ([GA vs MILP](ga-vs-milp.md)).\n",
+      "---\ntype: method\ntitle: GA selection methods\ndescription: Roulette, rank, tournament, stochastic universal sampling and why tournament is the default\n---\n| Method | How | Trade-off |\n|---|---|---|\n| Roulette (fitness-proportional) | P(select) proportional to fitness | Needs positive fitness; one super-fit individual takes over early; pressure vanishes when fitnesses are similar |\n| Rank-based | P proportional to rank, not raw fitness | Scale-invariant; steady pressure |\n| Tournament (size k) | Pick k at random, best wins | Default choice: no scaling needed, works for minimization, k tunes pressure (k = 2 mild, larger k stronger) |\n| Stochastic universal sampling | Roulette with evenly spaced pointers | Lower variance than roulette |\n\nDefensible answer: \"Tournament, because it's invariant to fitness scaling, works directly on cost for minimization, and k gives me one knob for selection pressure.\"\n\nPart of the [GA loop](ga-loop-and-encoding.md).\n",
+      "---\ntype: concept\ntitle: Genetic algorithm loop and encoding\ndescription: The GA loop steps and encodings (binary, integer, real, permutation, random keys)\n---\nEvery GA design choice controls one trade-off: selection pressure (exploit) versus diversity (explore). The probe is usually \"why did you choose that operator?\"\n\nThe loop:\n1. Initialize a population of N candidate solutions (random, or seeded with heuristic solutions).\n2. Evaluate fitness of each.\n3. Select parents (biased toward fitter ones), see [selection](ga-selection.md).\n4. Crossover parents to produce children (with probability pc), see [crossover and mutation](ga-crossover-mutation.md).\n5. Mutate children (with small probability pm per gene).\n6. Replace: form the next generation, usually keeping the best few (elitism), see [elitism and diversity](ga-elitism-diversity.md).\n7. Repeat from step 2 until a stopping rule: max generations, time limit, or no improvement for k generations.\n\nEncoding is the most important choice; it decides which operators make sense and whether children stay feasible.\n\n| Encoding | Example problem | Notes |\n|---|---|---|\n| Binary string | Facility open/close, knapsack | Simple; bit-flip mutation |\n| Integer vector | Assign each customer to a DC | Operators must keep values in range |\n| Real-valued vector | Continuous parameters, prices | Use blend or SBX crossover, Gaussian mutation |\n| Permutation | TSP, job sequencing, VRP routes | Needs special crossover (OX, PMX); one-point crossover creates duplicates |\n| Random keys | Any permutation problem | Real vector decoded by sorting into a permutation; any crossover stays valid |\n\nConstraints: [GA constraint handling](ga-constraints.md).\n",
+      "---\ntype: method\ntitle: Handling constraints in a GA\ndescription: Feasible by construction, repair, penalty, Deb's rules, death penalty\n---\nGA has no native way to handle constraints. Options, in rough order of preference:\n1. Feasible by construction: an encoding or decoder that can only produce feasible solutions (e.g., a greedy decoder that assigns customers to the cheapest DC with remaining capacity). Best when possible.\n2. Repair: fix infeasible children with a heuristic. Risk: biases the search toward the repair's habits.\n3. Penalty: fitness = cost + lambda x violation. Static lambda is hard to tune; too small and the GA converges to infeasible solutions, too large and it can't cross infeasible regions to reach better feasible ones. Dynamic or adaptive lambda (raise it over generations, or when the population is mostly infeasible) helps.\n4. Feasibility rules in selection (Deb's rules): feasible beats infeasible; between feasibles, lower cost wins; between infeasibles, lower violation wins. No lambda to tune.\n5. Death penalty (discard infeasibles): only when feasible solutions are easy to find.\n\nSee [encoding](ga-loop-and-encoding.md) and the [p-median example](p-median-ga-example.md).\n",
+      "---\ntype: method\ntitle: GA crossover and mutation operators\ndescription: Operators per encoding, OX/PMX/CX for permutations, mutation rates\n---\nCrossover combines good partial solutions (building blocks) from two parents.\n- Binary or integer: one-point, two-point, uniform (each gene from either parent with probability 0.5). Uniform mixes more but breaks up adjacent good genes.\n- Real-valued: arithmetic (child = lambda p1 + (1 - lambda) p2), BLX-alpha (sample from an interval extended around the parents), SBX (simulated binary crossover).\n- Permutation: OX (order crossover) copies a slice from parent 1 and fills the rest in the order they appear in parent 2, preserving relative order. PMX (partially mapped) copies a slice and resolves conflicts through the mapping, preserving absolute positions. CX (cycle crossover) takes each position from one parent, following cycles.\nTypical pc is 0.6-0.9 in textbooks; treat it as a tuning parameter, not a rule.\n\nMutation keeps diversity and makes every solution reachable, so the search can escape local optima.\n- Binary: flip each bit with probability about 1/L (L = string length).\n- Real: add Gaussian noise; the step size can shrink over generations.\n- Permutation: swap two positions, insert one element elsewhere, or invert a segment (inversion is the 2-opt move for TSP).\nToo low means premature convergence; too high means random search ([diversity](ga-elitism-diversity.md)).\n\nOperators must match the [encoding](ga-loop-and-encoding.md).\n"
+    ],
+    "files_read": [
+      "p-median-ga-example.md",
+      "ga-selection.md",
+      "ga-loop-and-encoding.md",
+      "ga-constraints.md",
+      "ga-crossover-mutation.md"
+    ],
+    "nav_calls": 2,
+    "retrieval_seconds": 5.917925834655762,
+    "units_read": 5,
+    "response": "For the p-median GA example, solutions are encoded as a set of p distinct site indices. The selection used is tournament, with k = 2-3 and elitism of 1-2. The result is validated by comparing against the MILP optimum on small instances and against the LP relaxation bound on large instances.",
+    "gen_seconds": 8.068267822265625,
+    "input_tokens": 1479,
+    "output_tokens": 67
+  },
+  {
+    "id": "m12",
+    "type": "multi_hop",
+    "question": "When would you choose a GA over MILP for facility location, and what hybrid is worth mentioning?",
+    "reference": "Default to MILP; use a GA only when costs are non-linear or the instance is too large. A hybrid uses the GA for the discrete decision of which facilities open and an LP for the continuous flows inside the fitness function.",
+    "retrieved_contexts": [
+      "---\ntype: example\ntitle: Worked example: p-median facility location with a GA\ndescription: Encoding, fitness, crossover, mutation, selection and validation for p-median\n---\nChoose p of m candidate sites to minimize total demand-weighted distance.\n- Encoding: a set of p distinct site indices.\n- Fitness: assign each customer to its nearest open site, sum demand x distance. Feasible by construction ([constraints](ga-constraints.md)).\n- Crossover: pool the two parents' sites, keep common sites, fill to p from the rest (randomly or greedily by cost).\n- Mutation: swap one open site for a closed one.\n- Selection: tournament, k = 2-3, elitism of 1-2 ([selection](ga-selection.md)).\n- Validation: on small instances, compare against the MILP optimum; on large ones, against the LP relaxation bound to estimate the gap ([GA vs MILP](ga-vs-milp.md)).\n",
+      "---\ntype: concept\ntitle: GA vs MILP\ndescription: Optimality, objective type, scale, tuning, best use, hybrid and the honest positioning line\n---\n| | GA | MILP (branch and bound) |\n|---|---|---|\n| Optimality proof | None | Yes, with a gap |\n| Objective | Any: non-linear, black-box, simulation-based | Linear (or convex with extensions) |\n| Scale | Handles huge instances heuristically | May stall on large or weak formulations |\n| Tuning | Many parameters | Mostly formulation quality |\n| Best use | Non-linear or black-box objectives, simulation-based evaluation, very large combinatorial problems, quick good-enough answers | When a tight formulation solves in time; when you need to prove quality |\n\nHybrid worth mentioning: GA searches the hard discrete decisions (which facilities open), and an LP solves the continuous part (flows) inside the fitness function. You get exact sub-solutions and heuristic search only where needed.\n\nHonest positioning line: \"I'd default to MILP and reach for GA only when the objective isn't linear-izable or the instance is too large; even then, I'd benchmark it against the MILP on small instances.\"\n\nGA or MILP for facility location? MILP first: linear, well-studied, gives a gap. GA only if costs are non-linear or the instance is too large. See [GA theory](ga-theory.md) and [p-median example](p-median-ga-example.md).\n",
+      "---\ntype: concept\ntitle: GA theory: schema theorem and memetic algorithms\ndescription: What the schema theorem does and does not say, no optimality bound, memetic GA\n---\nSchema theorem (Holland): short, low-order, above-average schemata grow exponentially across generations. It motivates the building-block idea but is not a convergence guarantee.\n\nNo optimality guarantee and no bound: a GA cannot tell you how far you are from the optimum. That is the main argument against it when an exact method is feasible ([GA vs MILP](ga-vs-milp.md)).\n\nMemetic algorithms: GA plus local search on each child (e.g., 2-opt). Usually much stronger than plain GA on combinatorial problems.\n",
+      "---\ntype: method\ntitle: Handling constraints in a GA\ndescription: Feasible by construction, repair, penalty, Deb's rules, death penalty\n---\nGA has no native way to handle constraints. Options, in rough order of preference:\n1. Feasible by construction: an encoding or decoder that can only produce feasible solutions (e.g., a greedy decoder that assigns customers to the cheapest DC with remaining capacity). Best when possible.\n2. Repair: fix infeasible children with a heuristic. Risk: biases the search toward the repair's habits.\n3. Penalty: fitness = cost + lambda x violation. Static lambda is hard to tune; too small and the GA converges to infeasible solutions, too large and it can't cross infeasible regions to reach better feasible ones. Dynamic or adaptive lambda (raise it over generations, or when the population is mostly infeasible) helps.\n4. Feasibility rules in selection (Deb's rules): feasible beats infeasible; between feasibles, lower cost wins; between infeasibles, lower violation wins. No lambda to tune.\n5. Death penalty (discard infeasibles): only when feasible solutions are easy to find.\n\nSee [encoding](ga-loop-and-encoding.md) and the [p-median example](p-median-ga-example.md).\n",
+      "---\ntype: method\ntitle: GA selection methods\ndescription: Roulette, rank, tournament, stochastic universal sampling and why tournament is the default\n---\n| Method | How | Trade-off |\n|---|---|---|\n| Roulette (fitness-proportional) | P(select) proportional to fitness | Needs positive fitness; one super-fit individual takes over early; pressure vanishes when fitnesses are similar |\n| Rank-based | P proportional to rank, not raw fitness | Scale-invariant; steady pressure |\n| Tournament (size k) | Pick k at random, best wins | Default choice: no scaling needed, works for minimization, k tunes pressure (k = 2 mild, larger k stronger) |\n| Stochastic universal sampling | Roulette with evenly spaced pointers | Lower variance than roulette |\n\nDefensible answer: \"Tournament, because it's invariant to fitness scaling, works directly on cost for minimization, and k gives me one knob for selection pressure.\"\n\nPart of the [GA loop](ga-loop-and-encoding.md).\n"
+    ],
+    "files_read": [
+      "p-median-ga-example.md",
+      "ga-vs-milp.md",
+      "ga-theory.md",
+      "ga-constraints.md",
+      "ga-selection.md"
+    ],
+    "nav_calls": 2,
+    "retrieval_seconds": 5.145019054412842,
+    "units_read": 5,
+    "response": "You would choose a GA over MILP for facility location when the objective isn't linear-izable or the instance is too large. A hybrid worth mentioning is a GA that searches the hard discrete decisions (which facilities open) and an LP that solves the continuous part (flows) inside the fitness function.",
+    "gen_seconds": 6.876174211502075,
+    "input_tokens": 1227,
+    "output_tokens": 61
+  },
+  {
+    "id": "u1",
+    "type": "unanswerable",
+    "question": "What safety stock z-value does the document give for a 99.9% cycle service level?",
+    "reference": "The notes do not cover this.",
+    "retrieved_contexts": [
+      "---\ntype: formula\ntitle: Safety stock and reorder point\ndescription: SS formulas with demand and lead-time variability, z-values, worked example and refinements\n---\nSS = z x sigma_d x sqrt(L) (demand variability only).\nSS = z x sqrt(L x sigma_d^2 + d-bar^2 x sigma_L^2) (demand and lead-time variability).\nROP = d-bar x L + SS.\n\nz from target cycle service level: 90% -> 1.28, 95% -> 1.645, 98% -> 2.05, 99% -> 2.33.\n\nWorked example: d-bar = 100/day, sigma_d = 20, L = 9 days, 95% CSL.\n- Demand variability only: SS = 1.645 x 20 x 3 = about 99, ROP = 900 + 99 = 999.\n- Add lead-time sigma_L = 2 days: SS = 1.645 x sqrt(9 x 400 + 10,000 x 4) = 1.645 x sqrt(43,600) = about 344.\n\nInsight to say out loud: lead-time variability more than tripled safety stock. Fixing supplier reliability can free more cash than better forecasting. Lead-time variance enters multiplied by d-bar^2, so it often dominates.\n\nTwo refinements interviewers like:\n1. sigma_d should be the forecast error standard deviation, not raw demand sigma. Seasonal demand has high sigma but may be well forecast. Safety stock covers what you can't predict. Better forecasts translate directly into lower stock (see [forecast accuracy metrics](forecast-accuracy-metrics.md)); quantify that for the client in rupees, not WMAPE points.\n2. The formula targets CSL. For a fill rate target beta, use the expected shortage per cycle: beta = 1 - sigma_LT x G(z) / Q, where G(z) = phi(z) - z(1 - Phi(z)) is the standard normal loss function. Solve for z. See [CSL vs fill rate](csl-vs-fill-rate.md).\n\nPeriodic review needs more: see [review policies](review-policies.md). Pooling reduces it: see [risk pooling](risk-pooling-multiechelon.md).\n"
+    ],
+    "files_read": [
+      "safety-stock-and-rop.md"
+    ],
+    "nav_calls": 2,
+    "retrieval_seconds": 2.7084479331970215,
+    "units_read": 1,
+    "response": "The notes do not cover this.",
+    "gen_seconds": 0.3592832088470459,
+    "input_tokens": 553,
+    "output_tokens": 8
+  },
+  {
+    "id": "u2",
+    "type": "unanswerable",
+    "question": "What picking accuracy target does the document recommend for a warehouse management system?",
+    "reference": "The notes do not cover this.",
+    "retrieved_contexts": [],
+    "files_read": [],
+    "nav_calls": 1,
+    "retrieval_seconds": 0.3940610885620117,
+    "units_read": 0,
+    "response": "The notes do not cover this.",
+    "gen_seconds": 0.44031500816345215,
+    "input_tokens": 69,
+    "output_tokens": 8
+  },
+  {
+    "id": "u3",
+    "type": "unanswerable",
+    "question": "Which ERP software does the document recommend for running S&OP?",
+    "reference": "The notes do not cover this.",
+    "retrieved_contexts": [],
+    "files_read": [],
+    "nav_calls": 1,
+    "retrieval_seconds": 0.38844990730285645,
+    "units_read": 0,
+    "response": "The notes do not cover this.",
+    "gen_seconds": 0.3336801528930664,
+    "input_tokens": 68,
+    "output_tokens": 8
+  },
+  {
+    "id": "u4",
+    "type": "unanswerable",
+    "question": "What is the particle swarm optimization velocity update rule described in the document?",
+    "reference": "The notes do not cover this.",
+    "retrieved_contexts": [],
+    "files_read": [],
+    "nav_calls": 1,
+    "retrieval_seconds": 0.384080171585083,
+    "units_read": 0,
+    "response": "The notes do not cover this.",
+    "gen_seconds": 0.34199094772338867,
+    "input_tokens": 69,
+    "output_tokens": 8
+  }
+]
